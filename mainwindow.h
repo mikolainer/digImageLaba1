@@ -17,9 +17,18 @@ public:
 
     const QString &getSrc_image() const;
 
+    QVector<QVector<double> > *getGaussian() const;
+    void setGaussian(QVector<QVector<double> > *newGaussian);
+
 private:
     Ui::MainWindow *ui;
     QString src_img_path;
     QImage image;
+    QImage new_image;
+    QPixmap image_pix;
+
+    int radius_apert;
+    double constanta;
+    QVector<QVector<double>> *gaussian;
 };
 #endif // MAINWINDOW_H
