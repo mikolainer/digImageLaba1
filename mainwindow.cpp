@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    src_image = QFileDialog::getOpenFileName(this, "Открыть изображение", "/Images", "Image Files (*.png *.jpg *.bmp)");
+    src_img_path = QFileDialog::getOpenFileName(this, "Открыть изображение", "/Images", "Image Files (*.png *.jpg *.bmp)");
+    image = QImage(src_img_path);
 }
 
 MainWindow::~MainWindow()
@@ -15,5 +16,5 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-const QString &MainWindow::getSrc_image() const { return src_image; }
+const QString &MainWindow::getSrc_image() const { return src_img_path; }
 
