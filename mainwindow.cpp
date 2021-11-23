@@ -15,8 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
     constanta = 1;
     radius_apert = 1;
     sigma_pow2 = 1;
-    scale = 1;
+    gaussian = new QVector<double>;
     setGaussian();
+
+    form = new Form(constanta, radius_apert, sigma_pow2);
+    connect(form->getPushButton_ptr(), SIGNAL(clicked()), this, SLOT(renew()));
+//    connect(form->getPushButton_ptr(), &QPushButton::clicked, this, &MainWindow::main_proc);
+    form->show();
 
     main_proc(image, new_image);
 
@@ -28,11 +33,12 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete gaussian;
+    delete form;
+    if (gaussian)
+        delete gaussian;
 }
 
 const QString &MainWindow::getSrc_image() const { return src_img_path; }
-
-QVector<double>* MainWindow::getGaussian() const{ return gaussian; }
 
 void MainWindow::setGaussian()
 {
@@ -43,7 +49,7 @@ void MainWindow::setGaussian()
 
     for (int i=0; i < 2*radius_apert+1; ++i){
         for (int j=0; j < 2*radius_apert+1; ++j){
-            double h = ( scale / qSqrt(2*M_PI*sigma_pow2) )
+            double h = ( 1 / qSqrt(2*M_PI*sigma_pow2) )
                     * qExp( 0
                             - (
                                 (qPow(j-radius_apert, 2) + qPow(i-radius_apert, 2))
@@ -64,6 +70,13 @@ void MainWindow::main_proc(const QImage &src, QImage &tar)
             tar.setPixel(src_pixel_x, src_pixel_y, QRgb(0xFF000000 + (tar_z << 16) + (tar_z << 8) + tar_z));
         }
     }
+}
+
+void MainWindow::renew()
+{
+    main_proc(image, new_image);
+    image_pix.convertFromImage(new_image);
+    ui->label->setPixmap(image_pix);
 }
 
 uint8_t MainWindow::get_tar_z(uint8_t src_z, QPoint pos, const QImage &src)
