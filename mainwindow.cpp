@@ -10,12 +10,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     src_img_path = QFileDialog::getOpenFileName(this, "Открыть изображение", "/Images", "Image Files (*.png *.jpg *.bmp)");
     image = QImage(src_img_path).convertToFormat(QImage::Format_Grayscale8);
+    new_image = QImage(src_img_path).convertToFormat(QImage::Format_Grayscale8);
 
     constanta = 1;
     radius_apert = 1;
     sigma_pow2 = 1;
-    scale = 10;
+    scale = 1;
     setGaussian();
+
+    main_proc(image, new_image);
 
     image_pix.convertFromImage(new_image);
     ui->label->setPixmap(image_pix);
@@ -55,7 +58,7 @@ void MainWindow::setGaussian()
 void MainWindow::main_proc(const QImage &src, QImage &tar)
 {
     for (int src_pixel_x = 0; src_pixel_x < src.width(); ++src_pixel_x){
-        for (int src_pixel_y = 0; src_pixel_x < src.height(); ++src_pixel_y){
+        for (int src_pixel_y = 0; src_pixel_y < src.height(); ++src_pixel_y){
             uint8_t src_z = src.pixel(src_pixel_x,src_pixel_y) & 0xFF;
             uint8_t tar_z = get_tar_z(src_z, QPoint(src_pixel_x, src_pixel_y), src);
             tar.setPixel(src_pixel_x, src_pixel_y, QRgb(0xFF000000 + (tar_z << 16) + (tar_z << 8) + tar_z));
@@ -96,6 +99,11 @@ double MainWindow::koeff(QPoint pos, const QImage &src)
 
 uint8_t MainWindow::gauss_svertka(QPoint pos, const QImage &src)
 {
-
+    uint8_t svertka = 0;
+    uint8_t src_z = src.pixel(pos.x(), pos.y()) & 0xFF;
+    for (double h : *gaussian){
+        svertka += src_z * h;
+    }
+    return svertka;
 }
 
