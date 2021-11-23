@@ -52,7 +52,7 @@ void MainWindow::setGaussian()
             double h = ( 1 / qSqrt(2*M_PI*sigma_pow2) )
                     * qExp( 0
                             - (
-                                (qPow(j-radius_apert, 2) + qPow(i-radius_apert, 2))
+                                (qSqrt(qPow(j-radius_apert, 2) + qPow(i-radius_apert, 2)))
                                 / (2 * sigma_pow2)
                               )
                             );
@@ -90,7 +90,7 @@ uint8_t MainWindow::get_tar_z(uint8_t src_z, QPoint pos, const QImage &src)
     {
         double k = koeff(pos, src);
         uint8_t gaus_z = gauss_svertka(pos, src);
-        tar_z = gaus_z - k * (src_z - gaus_z);
+        tar_z = gaus_z - (k * (src_z - gaus_z));
     }
     return tar_z;
 }
