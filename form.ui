@@ -76,10 +76,10 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QGraphicsView" name="graphicsView"/>
+      <widget class="MyStr_onImg" name="widget" native="true"/>
      </item>
      <item>
-      <widget class="QGraphicsView" name="graphicsView_2"/>
+      <widget class="MyStr_onImg" name="widget_2" native="true"/>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton">
@@ -92,6 +92,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyStr_onImg</class>
+   <extends>QWidget</extends>
+   <header>mystr_onimg.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

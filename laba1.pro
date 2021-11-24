@@ -12,12 +12,14 @@ SOURCES += \
     form.cpp \
     main.cpp \
     mainwindow.cpp \
-    myimage.cpp
+    myimage.cpp \
+    mystr_onimg.cpp
 
 HEADERS += \
     form.h \
     mainwindow.h \
-    myimage.h
+    myimage.h \
+    mystr_onimg.h
 
 FORMS += \
     form.ui \
