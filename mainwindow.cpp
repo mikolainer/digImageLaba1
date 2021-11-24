@@ -97,17 +97,33 @@ uint8_t MainWindow::get_tar_z(uint8_t src_z, QPoint pos, const QImage &src)
 
 double MainWindow::koeff(QPoint pos, const QImage &src)
 {
+    int num_ofPixels_in_apert = qPow(radius_apert*2+1, 2);
+
+    double sr = 0;
+    for (int i=0; i < 2*radius_apert+1; ++i){
+        for (int j=0; j < 2*radius_apert+1; ++j){
+            sr += src.pixel( pos.x() + (i-radius_apert) , pos.y() + (j-radius_apert) ) & 0xFF;
+        }
+    }
+    sr /= static_cast<double>(num_ofPixels_in_apert);
+
     double sum_pow = 0;
     for (int i=0; i < 2*radius_apert+1; ++i){
         for (int j=0; j < 2*radius_apert+1; ++j){
-            sum_pow += qPow(src.pixel( pos.x() + (i-radius_apert) , pos.y() + (j-radius_apert) ) & 0xFF, 2);
+            sum_pow += qPow((src.pixel( pos.x() + (i-radius_apert) , pos.y() + (j-radius_apert) ) & 0xFF) - sr , 2);
         }
     }
 
-    int num_ofPixels_in_apert = qPow(radius_apert*2+1, 2);
     double z_srednekvadr = qSqrt( sum_pow / num_ofPixels_in_apert );
 
-    return constanta / z_srednekvadr;
+    double k;
+    if ( z_srednekvadr < 1 ){
+        k = 1;
+    }else{
+        k = constanta / z_srednekvadr;
+    }
+
+    return k;
 }
 
 uint8_t MainWindow::gauss_svertka(QPoint pos, const QImage &src)
