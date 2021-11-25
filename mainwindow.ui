@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="MyNewImage" name="label">
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -59,6 +59,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MyNewImage</class>
+   <extends>QLabel</extends>
+   <header>mynewimage.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -18,9 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     gaussian = new QVector<double>;
     setGaussian();
 
-    form = new Form(constanta, radius_apert, sigma_pow2);
+    form = new Form(this);
     connect(form->getPushButton_ptr(), SIGNAL(clicked()), this, SLOT(renew()));
-//    connect(form->getPushButton_ptr(), &QPushButton::clicked, this, &MainWindow::main_proc);
     form->show();
 
     main_proc(image, new_image);
@@ -34,11 +33,32 @@ MainWindow::~MainWindow()
     delete ui;
     delete gaussian;
     delete form;
-    if (gaussian)
-        delete gaussian;
+    if (gaussian != nullptr) delete gaussian;
 }
 
 const QString &MainWindow::getSrc_image() const { return src_img_path; }
+
+int MainWindow::getRadius_apert() const{ return radius_apert; }
+void MainWindow::setRadius_apert(int newRadius_apert){ radius_apert = newRadius_apert; }
+
+double MainWindow::getConstanta() const{ return constanta; }
+void MainWindow::setConstanta(double newConstanta){ constanta = newConstanta; }
+
+double MainWindow::getSigma_pow2() const { return sigma_pow2; }
+void MainWindow::setSigma_pow2(double newSigma_pow2) { sigma_pow2 = newSigma_pow2; }
+
+int MainWindow::getImgLine() const { return ui->label->getLine_on_img(); }
+void MainWindow::setImgLine(int newImgLine) { ui->label->setLine_on_img(newImgLine); ui->label->repaint(); }
+
+const QImage &MainWindow::getImage() const
+{
+    return image;
+}
+
+const QImage &MainWindow::getNew_image() const
+{
+    return new_image;
+}
 
 void MainWindow::setGaussian()
 {

@@ -12,7 +12,6 @@ public:
 protected:
     void paintEvent(QPaintEvent *event);
     void draw(QPainter *qp);
-
 };
 
 #endif // MYSTR_ONIMG_H

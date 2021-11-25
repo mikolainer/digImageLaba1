@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPushButton>
 
+class MainWindow;
+
 namespace Ui {
 class Form;
 }
@@ -13,7 +15,7 @@ class Form : public QWidget
     Q_OBJECT
 
 public:
-    Form(double &constanta_i, int &radius_apert_i, double &sigma_pow2_i, QWidget *parent = nullptr);
+    Form(MainWindow* main_w = nullptr, QWidget *parent = nullptr);
     ~Form();
     QPushButton* getPushButton_ptr();
 
@@ -22,9 +24,7 @@ public slots:
 
 private:
     Ui::Form *ui;
-    int*     radius_apert;
-    double*  constanta;
-    double*  sigma_pow2;
+    MainWindow* main_window;
 };
 
 #endif // FORM_H

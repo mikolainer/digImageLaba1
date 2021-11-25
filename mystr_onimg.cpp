@@ -1,5 +1,6 @@
 #include "mystr_onimg.h"
 #include <QPainter>
+#include <QLabel>
 
 MyStr_onImg::MyStr_onImg(QWidget *parent) : QWidget(parent)
 {
@@ -9,6 +10,7 @@ MyStr_onImg::MyStr_onImg(QWidget *parent) : QWidget(parent)
 void MyStr_onImg::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
+
     QPainter qp(this);
     draw(&qp);
 }
