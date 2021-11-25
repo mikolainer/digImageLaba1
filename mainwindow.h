@@ -17,28 +17,24 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    const QString &getSrc_image() const;
+    void setGaussian();
 
-    int getRadius_apert() const;
-    void setRadius_apert(int newRadius_apert);
-    double getConstanta() const;
-    void setConstanta(double newConstanta);
-    double getSigma_pow2() const;
-    void setSigma_pow2(double newSigma_pow2);
-
-    int getImgLine() const;
-    void setImgLine(int newImgLine);
-
-    const QImage &getImage() const;
-
-    const QImage &getNew_image() const;
-
+    int     getRadius_apert() const;
+    void    setRadius_apert(int newRadius_apert);
+    double  getConstanta() const;
+    void    setConstanta(double newConstanta);
+    double  getSigma_pow2() const;
+    void    setSigma_pow2(double newSigma_pow2);
+    int     getImgLine() const;
+    void    setImgLine(int newImgLine);
     QImage *getImage_ptr();
-
     QImage *getNew_image_ptr();
+    double  getPorog() const;
+    void    setPorog(double newPorog);
 
-    double getPorog() const;
-    void setPorog(double newPorog);
+    const QImage &  getImage() const;
+    const QImage &  getNew_image() const;
+    const QString &getSrc_image() const;
 
 private:
     Ui::MainWindow *ui;
@@ -60,10 +56,11 @@ private:
     uint8_t get_tar_z( uint8_t src_z, QPoint pos, const QImage& src );
     uint8_t gauss_svertka(QPoint pos, const QImage& src);
     double koeff(QPoint pos, const QImage& src);
-    void setGaussian();
     void main_proc( const QImage& src, QImage& tar );
 
 private slots:
     void renew();
+    void on_action_2_triggered(bool checked);
+    void on_action_triggered();
 };
 #endif // MAINWINDOW_H

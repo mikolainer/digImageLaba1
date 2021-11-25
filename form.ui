@@ -71,15 +71,15 @@
      <item row="2" column="1">
       <widget class="QDoubleSpinBox" name="srkva"/>
      </item>
-     <item row="3" column="1">
-      <widget class="QDoubleSpinBox" name="porog"/>
-     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>порог:</string>
        </property>
       </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QDoubleSpinBox" name="porog"/>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_5">
@@ -95,20 +95,6 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QCheckBox" name="checkBox">
-       <property name="text">
-        <string>показать</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
@@ -117,7 +103,39 @@
       <widget class="MyStr_onImg" name="src_img" native="true"/>
      </item>
      <item>
+      <widget class="QLabel" name="label_6">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>разрез яркости исходного изображения</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="MyStr_onImg" name="tar_img" native="true"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>разрез яркости полученного изображения</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton">

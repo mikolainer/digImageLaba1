@@ -8,9 +8,7 @@ class MyStr_onImg : public QWidget
     Q_OBJECT
 public:
     explicit MyStr_onImg(QWidget *parent = nullptr);
-
     void setImage(QImage *newImage);
-
     void setLine(int newLine);
 
 protected:

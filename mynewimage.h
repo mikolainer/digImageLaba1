@@ -15,9 +15,7 @@ public:
 
 private:
     int line_on_img;
-
     void paintEvent(QPaintEvent *event);
-    void draw(QPainter *qp);
 };
 
 #endif // MYNEWIMAGE_H

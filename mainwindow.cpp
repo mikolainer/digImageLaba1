@@ -8,7 +8,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    src_img_path = QFileDialog::getOpenFileName(this, "Открыть изображение", "/Images", "Image Files (*.png *.jpg *.bmp)");
+    src_img_path = QFileDialog::getOpenFileName(this,
+                                                "Открыть изображение",
+                                                "/Images",
+                                                "Image Files (*.png *.jpg *.bmp)");
     image = QImage(src_img_path).convertToFormat(QImage::Format_Grayscale8);
     new_image = QImage(src_img_path).convertToFormat(QImage::Format_Grayscale8);
 
@@ -36,49 +39,22 @@ MainWindow::~MainWindow()
     if (gaussian != nullptr) delete gaussian;
 }
 
-const QString &MainWindow::getSrc_image() const { return src_img_path; }
+int             MainWindow::getRadius_apert()   const   { return radius_apert; }
+double          MainWindow::getConstanta()      const   { return constanta; }
+double          MainWindow::getSigma_pow2()     const   { return sigma_pow2; }
+double          MainWindow::getPorog()          const   { return porog; }
+int             MainWindow::getImgLine()        const   { return ui->label->getLine_on_img(); }
+const QString & MainWindow::getSrc_image()      const   { return src_img_path; }
+const QImage &  MainWindow::getImage()          const   { return image; }
+const QImage &  MainWindow::getNew_image()      const   { return new_image; }
+QImage *        MainWindow::getImage_ptr()              { return &image; }
+QImage *        MainWindow::getNew_image_ptr()          { return &new_image; }
 
-int MainWindow::getRadius_apert() const{ return radius_apert; }
-void MainWindow::setRadius_apert(int newRadius_apert){ radius_apert = newRadius_apert; }
-
-double MainWindow::getConstanta() const{ return constanta; }
-void MainWindow::setConstanta(double newConstanta){ constanta = newConstanta; }
-
-double MainWindow::getSigma_pow2() const { return sigma_pow2; }
-void MainWindow::setSigma_pow2(double newSigma_pow2) { sigma_pow2 = newSigma_pow2; }
-
-int MainWindow::getImgLine() const { return ui->label->getLine_on_img(); }
-void MainWindow::setImgLine(int newImgLine) { ui->label->setLine_on_img(newImgLine); ui->label->repaint(); }
-
-const QImage &MainWindow::getImage() const
-{
-    return image;
-}
-
-const QImage &MainWindow::getNew_image() const
-{
-    return new_image;
-}
-
-QImage *MainWindow::getImage_ptr()
-{
-    return &image;
-}
-
-QImage *MainWindow::getNew_image_ptr()
-{
-    return &new_image;
-}
-
-double MainWindow::getPorog() const
-{
-    return porog;
-}
-
-void MainWindow::setPorog(double newPorog)
-{
-    porog = newPorog;
-}
+void    MainWindow::setRadius_apert(int newRadius_apert){ radius_apert = newRadius_apert; }
+void    MainWindow::setConstanta(double newConstanta)   { constanta = newConstanta; }
+void    MainWindow::setSigma_pow2(double newSigma_pow2) { sigma_pow2 = newSigma_pow2; }
+void    MainWindow::setImgLine(int newImgLine)          { ui->label->setLine_on_img(newImgLine); ui->label->repaint(); }
+void    MainWindow::setPorog(double newPorog)           { porog = newPorog; }
 
 void MainWindow::setGaussian()
 {
@@ -110,14 +86,6 @@ void MainWindow::main_proc(const QImage &src, QImage &tar)
             tar.setPixel(src_pixel_x, src_pixel_y, QRgb(0xFF000000 + (tar_z << 16) + (tar_z << 8) + tar_z));
         }
     }
-}
-
-void MainWindow::renew()
-{
-    main_proc(image, new_image);
-    image_pix.convertFromImage(new_image);
-    ui->label->setPixmap(image_pix);
-    form->repaint();
 }
 
 uint8_t MainWindow::get_tar_z(uint8_t src_z, QPoint pos, const QImage &src)
@@ -177,3 +145,23 @@ uint8_t MainWindow::gauss_svertka(QPoint pos, const QImage &src)
     return svertka;
 }
 
+
+void MainWindow::on_action_2_triggered(bool checked)
+{
+    (checked) ?
+        form->show():
+        form->hide();
+}
+
+void MainWindow::on_action_triggered()
+{
+    new_image.save( QFileDialog::getSaveFileName(this, "Сохранить изображение", "/Images", "Image Files (*.png *.jpg *.bmp)") );
+}
+
+void MainWindow::renew()
+{
+    main_proc(image, new_image);
+    image_pix.convertFromImage(new_image);
+    ui->label->setPixmap(image_pix);
+    form->repaint();
+}

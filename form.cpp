@@ -39,6 +39,7 @@ void Form::on_pushButton_clicked()
 {
     main_window->setConstanta   ( ui->consta->value()   );
     main_window->setRadius_apert( ui->radius->value()   );
+    main_window->setGaussian();
     main_window->setSigma_pow2  ( ui->srkva->value()    );
     main_window->setImgLine     ( ui->line->value()     );
     main_window->setPorog       ( ui->porog->value()    );
