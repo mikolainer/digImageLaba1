@@ -60,6 +60,26 @@ const QImage &MainWindow::getNew_image() const
     return new_image;
 }
 
+QImage *MainWindow::getImage_ptr()
+{
+    return &image;
+}
+
+QImage *MainWindow::getNew_image_ptr()
+{
+    return &new_image;
+}
+
+double MainWindow::getPorog() const
+{
+    return porog;
+}
+
+void MainWindow::setPorog(double newPorog)
+{
+    porog = newPorog;
+}
+
 void MainWindow::setGaussian()
 {
     if (gaussian){
@@ -97,6 +117,7 @@ void MainWindow::renew()
     main_proc(image, new_image);
     image_pix.convertFromImage(new_image);
     ui->label->setPixmap(image_pix);
+    form->repaint();
 }
 
 uint8_t MainWindow::get_tar_z(uint8_t src_z, QPoint pos, const QImage &src)
@@ -137,7 +158,7 @@ double MainWindow::koeff(QPoint pos, const QImage &src)
     double z_srednekvadr = qSqrt( sum_pow / num_ofPixels_in_apert );
 
     double k;
-    if ( z_srednekvadr < 1 ){
+    if ( z_srednekvadr < porog ){
         k = 1;
     }else{
         k = constanta / z_srednekvadr;

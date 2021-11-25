@@ -33,6 +33,13 @@ public:
 
     const QImage &getNew_image() const;
 
+    QImage *getImage_ptr();
+
+    QImage *getNew_image_ptr();
+
+    double getPorog() const;
+    void setPorog(double newPorog);
+
 private:
     Ui::MainWindow *ui;
     Form *form;
@@ -45,7 +52,8 @@ private:
     int     radius_apert;
 
     double  constanta,
-            sigma_pow2;
+            sigma_pow2,
+            porog;
 
     QVector<double> *gaussian;
 

@@ -22,6 +22,9 @@ public:
 public slots:
     void on_pushButton_clicked();
 
+private slots:
+    void on_line_valueChanged(int arg1);
+
 private:
     Ui::Form *ui;
     MainWindow* main_window;
