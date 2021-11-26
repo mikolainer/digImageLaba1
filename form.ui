@@ -39,7 +39,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="radius"/>
+      <widget class="QSpinBox" name="radius">
+       <property name="maximum">
+        <number>50</number>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -52,7 +56,11 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="consta"/>
+      <widget class="QDoubleSpinBox" name="consta">
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_3">
@@ -69,7 +77,11 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QDoubleSpinBox" name="srkva"/>
+      <widget class="QDoubleSpinBox" name="srkva">
+       <property name="singleStep">
+        <double>0.500000000000000</double>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
@@ -79,7 +91,11 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QDoubleSpinBox" name="porog"/>
+      <widget class="QDoubleSpinBox" name="porog">
+       <property name="singleStep">
+        <double>0.500000000000000</double>
+       </property>
+      </widget>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_5">

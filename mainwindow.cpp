@@ -90,7 +90,7 @@ void MainWindow::main_proc(const QImage &src, QImage &tar)
 
 uint8_t MainWindow::get_tar_z(uint8_t src_z, QPoint pos, const QImage &src)
 {
-    uint8_t tar_z = src_z;
+    int tar_z = src_z;
     if ( pos.x() > radius_apert                &&
          pos.y() > radius_apert                &&
          pos.x() < src.width() - radius_apert  &&
@@ -98,9 +98,17 @@ uint8_t MainWindow::get_tar_z(uint8_t src_z, QPoint pos, const QImage &src)
         )
     {
         double k = koeff(pos, src);
-        uint8_t gaus_z = gauss_svertka(pos, src);
-        tar_z = gaus_z - (k * (src_z - gaus_z));
+        double gaus_z = gauss_svertka(pos, src);
+        tar_z = gaus_z - (k * static_cast<double>(static_cast<double>(src_z) - gaus_z));
+//        tar_z = k * static_cast<double>(static_cast<int>(src_z) - gaus_z);
+//        tar_z = k * 128;
     }
+    if (tar_z > 255)
+        tar_z = 255;
+
+    if (tar_z < 0)
+        tar_z = 0;
+
     return tar_z;
 }
 
@@ -119,7 +127,7 @@ double MainWindow::koeff(QPoint pos, const QImage &src)
     double sum_pow = 0;
     for (int i=0; i < 2*radius_apert+1; ++i){
         for (int j=0; j < 2*radius_apert+1; ++j){
-            sum_pow += qPow((src.pixel( pos.x() + (i-radius_apert) , pos.y() + (j-radius_apert) ) & 0xFF) - sr , 2);
+            sum_pow += qPow((src.pixel( pos.x() + (i-radius_apert) , pos.y() + (j-radius_apert) ) & 0xFF) - sr, 2);
         }
     }
 
@@ -130,14 +138,14 @@ double MainWindow::koeff(QPoint pos, const QImage &src)
         k = 1;
     }else{
         k = constanta / z_srednekvadr;
-    }
+    }     
 
     return k;
 }
 
-uint8_t MainWindow::gauss_svertka(QPoint pos, const QImage &src)
+double MainWindow::gauss_svertka(QPoint pos, const QImage &src)
 {
-    uint8_t svertka = 0;
+    double svertka = 0;
     uint8_t src_z = src.pixel(pos.x(), pos.y()) & 0xFF;
     for (double h : *gaussian){
         svertka += src_z * h;

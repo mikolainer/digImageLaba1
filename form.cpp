@@ -22,6 +22,8 @@ Form::Form(MainWindow* main_w, QWidget *parent) :
     ui->tar_img->setImage( main_window->getNew_image_ptr() );
     ui->src_img->setLine( ui->line->value() );
     ui->tar_img->setLine( ui->line->value() );
+
+    ui->line->setMaximum( main_window->getNew_image().height() );
 }
 
 Form::~Form()

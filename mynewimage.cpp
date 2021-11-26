@@ -3,7 +3,7 @@
 
 MyNewImage::MyNewImage(QWidget *parent) : QLabel(parent)
 {
-
+    line_on_img = 0;
 }
 
 int MyNewImage::getLine_on_img() const

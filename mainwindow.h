@@ -54,7 +54,7 @@ private:
     QVector<double> *gaussian;
 
     uint8_t get_tar_z( uint8_t src_z, QPoint pos, const QImage& src );
-    uint8_t gauss_svertka(QPoint pos, const QImage& src);
+    double gauss_svertka(QPoint pos, const QImage& src);
     double koeff(QPoint pos, const QImage& src);
     void main_proc( const QImage& src, QImage& tar );
 
